@@ -1,4 +1,5 @@
-#web app
+# web app
+
 FakeBook
 
 This repo contains a web app named FakeBook, because it's inspired from FaceBook, but it's not the same thing (it doesn't have all the responsibilities).
