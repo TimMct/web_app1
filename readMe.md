@@ -8,9 +8,9 @@ There are users who can post a picture of their own. These users can send friend
 
 There is also an admin who monitorises the activity of all the users (like when a user enters/leaves), and the admin can see the most liked pictures and the most popular user (the one with that has many friends).
 
-Design patterns:  * factory is used to make 2 kinds of entities which work with the app (users and admin). 
-                  * observer is used when a user sends a friend request to another user.
-                  * facade ...
+Design patterns:  + factory is used to make 2 kinds of entities which work with the app (users and admin). 
+                  + observer is used when a user sends a friend request to another user.
+                  + facade ...
 
 
 # implementation
