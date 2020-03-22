@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
+/**
+ * @author Timotei Molcut
+ * the main class for running the server, web application
+ */
 @SpringBootApplication
 public class WebApplication {
 
