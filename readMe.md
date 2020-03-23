@@ -16,3 +16,7 @@ Design patterns:  + factory is used to make 2 kinds of entities which work with 
 # implementation
 
 Till now there are 2 main classes: User and Picture. Between these classes there is a one-to-many relationship. A user can have many pictures, but a picture can have only one owner (user).
+
+# diagram
+
+![diag](diagram.png)
