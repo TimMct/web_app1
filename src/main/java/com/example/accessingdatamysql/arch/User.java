@@ -70,6 +70,7 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+        notifyAllObservers();
     }
 
     public String getEmail() {
@@ -78,6 +79,7 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+        notifyAllObservers();
     }
 
 
@@ -85,6 +87,19 @@ public class User {
     public List<Picture> getPictures(){
         return pictures;
     }
+
+
+    /**
+     * for observer pattern
+     */
+    public void notifyAllObservers(){
+        for(Picture pic : this.getPictures()){
+            pic.update();
+        }
+    }
+
+
+
 
     /**
      * method needed to increment the # of likes of a picture, owned by a user

@@ -1,33 +1,54 @@
 package com.example.webapp;
 
-import com.example.accessingdatamysql.arch.Picture;
-import com.example.accessingdatamysql.arch.PictureRepository;
+import com.example.accessingdatamysql.arch.*;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoRule;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Timotei Molcut
  * class for picture crud tests
  */
-//@SpringBootTest
+//@RunWith(MockitoJUnitRunner.class)
 public class PictureTests {
-    //@Autowired
-    private PictureRepository pictureRepository;
+
+    public Picture dummy;
+    private PictureFacade pictureFacade;
+    @Mock
+    PictureRepo pictureRepo;
+
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
+
+    @Before
+    public void setUp(){
+        dummy = new Picture(1, new User(), "eminescu1.jpg", 100);
+        pictureFacade = new PictureFacade(pictureRepo);
+    }
 
     @Test
-    public void addPicture(){
-        Picture inserted;
-        long countFirst;
-        inserted = new Picture();
-        countFirst = pictureRepository.count();
-        pictureRepository.save(inserted);
-        assertEquals(countFirst + 1, pictureRepository.count());
+    public void testFindById(){
+
+        when(pictureRepo.findById(1)).thenReturn(dummy);
+        assertEquals(dummy, pictureFacade.findById(1));
+        verify(pictureRepo).findById(1);
+
     }
-    @Test
+
+
+
+
+
+
+    /*@Test
     public void deletePicture() {
         long countFirst;
         Picture inserted;
@@ -45,5 +66,5 @@ public class PictureTests {
         pictureRepository.save(inserted);
         retrieved = pictureRepository.findById(1).orElse(null);
         assertEquals(inserted, retrieved);
-    }
+    }*/
 }

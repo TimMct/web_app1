@@ -9,7 +9,7 @@ import javax.swing.*;
  * class needed to reprezent a picture by storing the absolute path to the picture file stored on the current machine
  */
 @Entity
-public class Picture {
+public class Picture extends PictureObserver{
     /**
      * primary key for picture table
      */
@@ -54,6 +54,7 @@ public class Picture {
     public Picture(Integer picId, User owner, String name, Integer nrOfLikes){
         this.picId = picId;
         this.owner = owner;
+        this.owner.getPictures().add(this);
         this.name = name;
         this.nrOfLikes = nrOfLikes;
     }
@@ -104,5 +105,10 @@ public class Picture {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    @Override
+    public void update(){
+        System.out.println("Owner's data is: "+this.owner.getName()+" "+this.owner.getEmail());
     }
 }
