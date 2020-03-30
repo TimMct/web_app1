@@ -21,3 +21,8 @@ Till now there are 2 main classes: User and Picture. Between these classes there
 <img src="diagram.PNG"
      alt="diag"
      style="float: left; margin-right: 10px;" />
+
+# observer pattern
+
+Between User and Picture there is a one-to-many relationship. So there must be implemented an observer pattern. For example if one user modifies its name or email then all his pictures must acknowledge this change. So this is the main need reason why an observer pattern is needed.
+
