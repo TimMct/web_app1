@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql.arch;
+package com.example.accessingdatamysql.architecture;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,10 +34,10 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private List<Picture> pictures = new ArrayList<Picture>();
 
+    @Transient
+    private LikeObserver likeObserver;
 
-    //private List<User> friends;
 
-    //empty constructor
 
 
     public User() {
@@ -82,12 +82,13 @@ public class User {
         notifyAllObservers();
     }
 
-
+    public void addPicture(Picture picture){
+        this.pictures.add(picture);
+    }
 
     public List<Picture> getPictures(){
         return pictures;
     }
-
 
     /**
      * for observer pattern
@@ -98,35 +99,42 @@ public class User {
         }
     }
 
+    @Transient
+    private String likeNotification;
 
+    public String getLikeNotification(){
+        return this.likeNotification;
+    }
+
+    public void changeLikeNotification(String newNotification){
+        this.likeNotification = newNotification;
+    }
+
+    public void attachLikeObserver(){
+        this.likeObserver = new LikeObserver(this);
+        likeNotification = new String();
+    }
 
 
     /**
-     * method needed to increment the # of likes of a picture, owned by a user
-     * @param u the owner
-     * @param p the picture to be liked
+     * This user likes the picture of User user situated on the picturePos in the list.
+     * @param user
+     * @param picturePos
      */
-    public void likePicture(User u, Picture p){
-        for(Picture pic: u.getPictures()){
-            if(pic.equals(p)){
-                p.setNrOfLikes(p.getNrOfLikes()+1);
-                return;
-            }
-        }
+    public void likePicture(User user, int picturePos){
+        Picture likedPicture = user.pictures.get(picturePos);
+        likedPicture.addLike();
+        user.likeObserver.update(this, picturePos);
     }
 
     /**
-     * method needed to decrement the # of likes of a picture, owned by a user
-     * @param u
-     * @param p
+     * This user unlikes the picture of User user situated on the picturePos in the list.
+     * @param user
+     * @param picturePos
      */
-    public void unlikePicture(User u, Picture p){
-        for(Picture pic: u.getPictures()){
-            if(pic.equals(p)){
-                p.setNrOfLikes(p.getNrOfLikes()-1);
-                return;
-            }
-        }
+    public void unlikePicture(User user, int picturePos){
+        Picture likedPicture = user.getPictures().get(picturePos);
+        likedPicture.addLike();
     }
 
     /**

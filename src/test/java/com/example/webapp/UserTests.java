@@ -1,19 +1,7 @@
 package com.example.webapp;
 
 import com.example.accessingdatamysql.UserController;
-import com.example.accessingdatamysql.WebApplication;
-import com.example.accessingdatamysql.arch.User;
-import com.example.accessingdatamysql.arch.UserRepository;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 

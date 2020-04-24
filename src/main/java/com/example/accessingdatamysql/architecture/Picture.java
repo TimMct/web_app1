@@ -1,5 +1,7 @@
-package com.example.accessingdatamysql.arch;
+package com.example.accessingdatamysql.architecture;
 
+import com.example.accessingdatamysql.architecture.PictureObserver;
+import com.example.accessingdatamysql.architecture.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.swing.*;
@@ -9,7 +11,7 @@ import javax.swing.*;
  * class needed to reprezent a picture by storing the absolute path to the picture file stored on the current machine
  */
 @Entity
-public class Picture extends PictureObserver{
+public class Picture extends PictureObserver {
     /**
      * primary key for picture table
      */
@@ -44,19 +46,13 @@ public class Picture extends PictureObserver{
      */
     public Picture(){}
 
-    /**
-     * constructor for test class
-     * @param picId primary key
-     * @param owner foreign key
-     * @param name relative path
-     * @param nrOfLikes the level of appreciation for the picture
-     */
-    public Picture(Integer picId, User owner, String name, Integer nrOfLikes){
+
+    public Picture(Integer picId, User owner, String name){
         this.picId = picId;
         this.owner = owner;
         this.owner.getPictures().add(this);
         this.name = name;
-        this.nrOfLikes = nrOfLikes;
+        nrOfLikes = 0;
     }
 
     public Integer getPicId() {
@@ -71,9 +67,7 @@ public class Picture extends PictureObserver{
         return name;
     }
 
-    public Integer getNrOfLikes() {
-        return nrOfLikes;
-    }
+
 
     public void setPicId(Integer picId) {
         this.picId = picId;
@@ -87,14 +81,22 @@ public class Picture extends PictureObserver{
         this.name = name;
     }
 
-    public void setNrOfLikes(Integer nrOfLikes) {
-        this.nrOfLikes = nrOfLikes;
+    public void addLike(){
+        this.nrOfLikes++;
     }
+
+    public void deleteLike(){
+        this.nrOfLikes--;
+    }
+
+    public Integer getNrOfLikes(){
+        return nrOfLikes;
+    }
+
 
     /**
      * method needed to open a picture in a JFrame window
      * here the absolute path for the file is saved, only the name is dynamic
-     * @param void
      * @return void
      */
     public void openPic(){
@@ -111,4 +113,5 @@ public class Picture extends PictureObserver{
     public void update(){
         System.out.println("Owner's data is: "+this.owner.getName()+" "+this.owner.getEmail());
     }
+
 }

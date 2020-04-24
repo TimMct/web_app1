@@ -1,9 +1,9 @@
 package com.example.accessingdatamysql;
 
-import com.example.accessingdatamysql.arch.Picture;
-import com.example.accessingdatamysql.arch.PictureRepository;
-import com.example.accessingdatamysql.arch.User;
-import com.example.accessingdatamysql.arch.UserRepository;
+import com.example.accessingdatamysql.architecture.Picture;
+import com.example.accessingdatamysql.architecture.PictureRepository;
+import com.example.accessingdatamysql.architecture.User;
+import com.example.accessingdatamysql.architecture.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -145,7 +145,6 @@ public class UserController {
         User user;
         Picture picture = new Picture();
         picture.setName(picName);
-        picture.setNrOfLikes(0);
         if(userRepository.existsById(userId)){
             user = userRepository.findById(userId).orElse(null);
 

@@ -1,13 +1,13 @@
 package com.example.webapp;
 
-import com.example.accessingdatamysql.arch.*;
+import com.example.accessingdatamysql.architecture.*;
+import com.example.accessingdatamysql.architecture.Picture;
+import com.example.accessingdatamysql.architecture.User;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
 import static org.junit.Assert.assertEquals;
@@ -30,7 +30,7 @@ public class PictureTests {
 
     @Before
     public void setUp(){
-        dummy = new Picture(1, new User(), "eminescu1.jpg", 100);
+        dummy = new Picture(1, new User(), "eminescu1.jpg");
         pictureFacade = new PictureFacade(pictureRepo);
     }
 

@@ -1,14 +1,12 @@
 package com.example.accessingdatamysql;
 
-import com.example.accessingdatamysql.arch.Picture;
-import com.example.accessingdatamysql.arch.PictureRepository;
+import com.example.accessingdatamysql.architecture.Picture;
+import com.example.accessingdatamysql.architecture.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.swing.*;
 
 /**
  * @author Timotei Molcut
@@ -35,7 +33,6 @@ public class PictureController {
     public String addPicture(String name){
         Picture p = new Picture();
         p.setName(name);
-        p.setNrOfLikes(0);
         pictureRepository.save(p);
         return "Picture created.";
     }

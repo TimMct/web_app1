@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql.arch;
+package com.example.accessingdatamysql.architecture;
 
 public class PictureFacade {
 
