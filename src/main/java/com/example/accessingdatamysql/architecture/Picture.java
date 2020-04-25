@@ -1,17 +1,17 @@
 package com.example.accessingdatamysql.architecture;
 
-import com.example.accessingdatamysql.architecture.PictureObserver;
-import com.example.accessingdatamysql.architecture.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Timotei Molcut
  * class needed to reprezent a picture by storing the absolute path to the picture file stored on the current machine
  */
 @Entity
-public class Picture extends PictureObserver {
+public class Picture {
     /**
      * primary key for picture table
      */
@@ -41,22 +41,25 @@ public class Picture extends PictureObserver {
     @Column
     private Integer nrOfLikes;
 
+    @Transient
+    private List<User> likerList;
+
+
     /**
      * empty constructor for @Entity
      */
     public Picture(){}
 
-
     public Picture(Integer picId, User owner, String name){
         this.picId = picId;
         this.owner = owner;
-        this.owner.getPictures().add(this);
         this.name = name;
-        nrOfLikes = 0;
+        this.nrOfLikes = 0;
+        this.likerList = new ArrayList<User>();
     }
 
-    public Integer getPicId() {
-        return picId;
+    public List<User> getLikerList(){
+        return likerList;
     }
 
     public User getOwner(){
@@ -68,11 +71,6 @@ public class Picture extends PictureObserver {
     }
 
 
-
-    public void setPicId(Integer picId) {
-        this.picId = picId;
-    }
-
     public void setOwner(User owner){
         this.owner = owner;
     }
@@ -81,16 +79,18 @@ public class Picture extends PictureObserver {
         this.name = name;
     }
 
-    public void addLike(){
+    public void addLike(User user){
         this.nrOfLikes++;
+        this.likerList.add(user);
     }
 
-    public void deleteLike(){
+    public void deleteLike(User user){
         this.nrOfLikes--;
+        this.likerList.remove(user);
     }
 
     public Integer getNrOfLikes(){
-        return nrOfLikes;
+        return this.nrOfLikes;
     }
 
 
@@ -109,9 +109,12 @@ public class Picture extends PictureObserver {
         frame.setVisible(true);
     }
 
-    @Override
-    public void update(){
-        System.out.println("Owner's data is: "+this.owner.getName()+" "+this.owner.getEmail());
-    }
 
+    @Override
+    public String toString() {
+        return "Picture{" +
+                "name='" + name + '\'' +
+                ", nrOfLikes=" + nrOfLikes +
+                " like/likes}";
+    }
 }

@@ -2,7 +2,7 @@ package com.example.accessingdatamysql.architecture;
 
 public class UserFactory {
 
-    public User getUserType(Integer userId, String name, String email, String type){
+    public User getUserByType(Integer userId, String name, String email, String type){
         if(type == null)
             return null;
         if(type.equalsIgnoreCase("engineer"))

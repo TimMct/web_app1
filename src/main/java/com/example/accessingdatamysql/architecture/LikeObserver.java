@@ -9,7 +9,7 @@ public class LikeObserver {
     }
 
     public void update(User user, int picturePos){
-        this.user.changeLikeNotification(user.getClass().getSimpleName()+" \"" + user.getName() + "\" liked your picture #"+picturePos);
+        this.user.changeLikeNotification(user + " liked your picture #"+picturePos);
     }
 
 

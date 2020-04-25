@@ -37,7 +37,8 @@ public class User {
     @Transient
     private LikeObserver likeObserver;
 
-
+    @Transient
+    private String likeNotification;
 
 
     public User() {
@@ -53,15 +54,8 @@ public class User {
         this.userId = userId;
         this.name = name;
         this.email = email;
-    }
-
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer id) {
-        this.userId = id;
+        this.likeObserver = new LikeObserver(this);
+        this.likeNotification = new String();
     }
 
     public String getName() {
@@ -70,7 +64,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-        notifyAllObservers();
     }
 
     public String getEmail() {
@@ -79,7 +72,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-        notifyAllObservers();
     }
 
     public void addPicture(Picture picture){
@@ -87,33 +79,19 @@ public class User {
     }
 
     public List<Picture> getPictures(){
-        return pictures;
+        return this.pictures;
     }
-
-    /**
-     * for observer pattern
-     */
-    public void notifyAllObservers(){
-        for(Picture pic : this.getPictures()){
-            pic.update();
-        }
-    }
-
-    @Transient
-    private String likeNotification;
 
     public String getLikeNotification(){
-        return this.likeNotification;
+        String toReturn = this.likeNotification;
+        this.likeNotification = "";//modify to empty notification
+        return toReturn;
     }
 
     public void changeLikeNotification(String newNotification){
         this.likeNotification = newNotification;
     }
 
-    public void attachLikeObserver(){
-        this.likeObserver = new LikeObserver(this);
-        likeNotification = new String();
-    }
 
 
     /**
@@ -122,9 +100,22 @@ public class User {
      * @param picturePos
      */
     public void likePicture(User user, int picturePos){
-        Picture likedPicture = user.pictures.get(picturePos);
-        likedPicture.addLike();
-        user.likeObserver.update(this, picturePos);
+        if(this.equals(user)){
+            System.out.println("somebody tries to like his/her own picture");
+            return;
+        }
+        List<Picture> allPicsOfUser = user.getPictures();
+        if(picturePos >= 0 && allPicsOfUser.size() > picturePos){
+            Picture likedPicture = allPicsOfUser.get(picturePos);
+            if(!likedPicture.getLikerList().contains(this)){
+                likedPicture.addLike(this);
+                user.likeObserver.update(this, picturePos);
+            } else {
+                System.out.println(this.getName()+" already liked "+likedPicture.getName());
+            }
+        } else {
+            System.out.println(user+" doesn't have pic#"+picturePos);
+        }
     }
 
     /**
@@ -133,25 +124,30 @@ public class User {
      * @param picturePos
      */
     public void unlikePicture(User user, int picturePos){
-        Picture likedPicture = user.getPictures().get(picturePos);
-        likedPicture.addLike();
+        if(this.equals(user)){
+            System.out.println("somebody tries to unlike his/her own picture");
+            return;
+        }
+        List<Picture> allPicsOfUser = user.getPictures();
+        if(picturePos >= 0 && allPicsOfUser.size() > picturePos) {
+            Picture likedPicture = allPicsOfUser.get(picturePos);
+            if (likedPicture.getLikerList().contains(this)) {
+                likedPicture.deleteLike(this);
+            } else {
+                System.out.println(this.getName() + " already unlikes " + likedPicture.getName());
+            }
+        } else {
+            System.out.println(user+" doesn't have pic#"+picturePos);
+        }
     }
 
-    /**
-     * incomplete method
-     * @param u
-     */
-    public void sendFR(User u){
 
-    }
-
-    /**
-     * overriding the method toString
-     * @return the name and the email of the user
-     */
     @Override
-    public String toString(){
-        return this.name+"  "+this.email;
+    public String toString() {
+        return this.getClass().getSimpleName()+
+                '{'+
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
-
 }
