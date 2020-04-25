@@ -1,4 +1,8 @@
-package com.example.accessingdatamysql.architecture;
+package com.example.architecture;
+
+import com.example.architecture.accesData.entity.Picture;
+import com.example.architecture.accesData.entity.User;
+import com.example.architecture.accesData.UserFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,21 +10,21 @@ import java.util.Set;
 /**
  * This class is just for behaviour tests.
  */
-public class Main {
+public class Behaviour {
 
 
     public static void main(String[] args) {
         UserFactory factory = new UserFactory();
-        User first = factory.getUserByType(1, "firstUser", "first@email.com", "engineer");
-        User second = factory.getUserByType(2, "secondUser", "second@email.com", "teacher");
+        User first = factory.getUserByType("firstUser", "first@email.com", "engineer");
+        User second = factory.getUserByType("secondUser", "second@email.com", "teacher");
 
         if(first.equals(null) || second.equals(null)){
             System.out.println("Something went wrong");
             return;
         }
-        first.addPicture(new Picture(1, first, "emi.jpg"));
-        first.addPicture(new Picture(2, first, "eminescu.jpg"));
-        second.addPicture(new Picture(3, second, "vero.jpg"));
+        first.addPicture(new Picture( first, "emi.jpg"));
+        first.addPicture(new Picture( first, "eminescu.jpg"));
+        second.addPicture(new Picture( second, "vero.jpg"));
 
         System.out.println(second + " notifications: "+second.getLikeNotification());
         System.out.println();

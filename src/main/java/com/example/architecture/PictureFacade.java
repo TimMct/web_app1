@@ -1,4 +1,6 @@
-package com.example.accessingdatamysql.architecture;
+package com.example.architecture;
+
+import com.example.architecture.accesData.entity.Picture;
 
 public class PictureFacade {
 

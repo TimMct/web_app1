@@ -1,8 +1,9 @@
 package com.example.webapp;
 
-import com.example.accessingdatamysql.architecture.*;
-import com.example.accessingdatamysql.architecture.Picture;
-import com.example.accessingdatamysql.architecture.User;
+import com.example.architecture.PictureFacade;
+import com.example.architecture.PictureRepo;
+import com.example.architecture.accesData.entity.Picture;
+import com.example.architecture.accesData.entity.User;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class PictureTests {
 
     @Before
     public void setUp(){
-        dummy = new Picture(1, new User(), "eminescu1.jpg");
+        dummy = new Picture(new User(), "eminescu1.jpg");
         pictureFacade = new PictureFacade(pictureRepo);
     }
 

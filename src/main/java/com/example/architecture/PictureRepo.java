@@ -1,5 +1,7 @@
-package com.example.accessingdatamysql.architecture;
+package com.example.architecture;
 
+
+import com.example.architecture.accesData.entity.Picture;
 
 /**
  * interface for test

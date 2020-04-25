@@ -1,6 +1,6 @@
 package com.example.webapp;
 
-import com.example.accessingdatamysql.UserController;
+import com.example.architecture.controller.UserController;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;

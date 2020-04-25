@@ -1,12 +1,10 @@
-package com.example.accessingdatamysql.architecture;
+package com.example.architecture.accesData.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Timotei Molcut
@@ -52,8 +50,7 @@ public class Picture {
      */
     public Picture(){}
 
-    public Picture(Integer picId, User owner, String name){
-        this.picId = picId;
+    public Picture(User owner, String name){
         this.owner = owner;
         this.name = name;
         this.nrOfLikes = 0;

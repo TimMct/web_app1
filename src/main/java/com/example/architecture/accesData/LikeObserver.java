@@ -1,4 +1,6 @@
-package com.example.accessingdatamysql.architecture;
+package com.example.architecture.accesData;
+
+import com.example.architecture.accesData.entity.User;
 
 public class LikeObserver {
 

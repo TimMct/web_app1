@@ -1,5 +1,6 @@
-package com.example.accessingdatamysql.architecture;
+package com.example.architecture.accesData.entity;
 
+import com.example.architecture.accesData.LikeObserver;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -33,7 +34,7 @@ public class User {
      * relation OneToMany with the table picture
      * a user can have a list of pictures
      */
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade=CascadeType.REMOVE)
     private List<Picture> pictures;
 
     @Transient
@@ -51,19 +52,17 @@ public class User {
     }
 
     /**
-     * constructor
-     * @param userId
+     *
      * @param name
      * @param email
      */
-    public User(Integer userId, String name, String email){
-        this.userId = userId;
+    public User(String name, String email){
         this.name = name;
         this.email = email;
         this.likeObserver = new LikeObserver(this);
         this.likeNotification = new String();
-        this.friends = new ArrayList<User>();
         this.pictures = new ArrayList<Picture>();
+        this.friends = new ArrayList<User>();
     }
 
     public String getName() {
