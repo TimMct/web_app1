@@ -1,5 +1,7 @@
 package com.example.accessingdatamysql.architecture;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class User {
      * a user can have a list of pictures
      */
     @OneToMany(mappedBy = "owner")
-    private List<Picture> pictures = new ArrayList<Picture>();
+    private List<Picture> pictures;
 
     @Transient
     private LikeObserver likeObserver;
@@ -40,6 +42,10 @@ public class User {
     @Transient
     private String likeNotification;
 
+
+    @ManyToMany
+    @JsonIgnore
+    private List<User> friends;
 
     public User() {
     }
@@ -56,6 +62,8 @@ public class User {
         this.email = email;
         this.likeObserver = new LikeObserver(this);
         this.likeNotification = new String();
+        this.friends = new ArrayList<User>();
+        this.pictures = new ArrayList<Picture>();
     }
 
     public String getName() {
@@ -92,10 +100,12 @@ public class User {
         this.likeNotification = newNotification;
     }
 
-
+    public List<User> getFriends(){
+        return this.friends;
+    }
 
     /**
-     * This user likes the picture of User user situated on the picturePos in the list.
+     * This user likes the picture situated on the picturePos in the list of user.
      * @param user
      * @param picturePos
      */
@@ -119,7 +129,7 @@ public class User {
     }
 
     /**
-     * This user unlikes the picture of User user situated on the picturePos in the list.
+     * This user unlikes the picture situated on the picturePos in the list of user.
      * @param user
      * @param picturePos
      */
@@ -141,6 +151,20 @@ public class User {
         }
     }
 
+
+    public void addFriend(User user){
+        if(!this.equals(user) && !this.friends.contains(user)){
+            this.friends.add(user);
+            user.friends.add(this);
+        }
+    }
+
+    public void removeFriend(User user){
+        if(!this.equals(user) && this.friends.contains(user)){
+            this.friends.remove(user);
+            user.friends.remove(this);
+        }
+    }
 
     @Override
     public String toString() {

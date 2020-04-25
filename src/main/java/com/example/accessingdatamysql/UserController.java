@@ -160,4 +160,24 @@ public class UserController {
             return "There is no user with id "+userId;
     }
 
+    @PostMapping(path = "/addFriend")
+    public String addFriend(Integer firstUserId, Integer secondUserId){
+        User firstFriend, secondFriend;
+        if(userRepository.existsById(firstUserId)){
+            if(userRepository.existsById(secondUserId)){
+                firstFriend = userRepository.findById(firstUserId).orElse(null);
+                secondFriend = userRepository.findById(secondUserId).orElse(null);
+                firstFriend.addFriend(secondFriend);
+                userRepository.save(firstFriend);
+                userRepository.save(secondFriend);
+                return "Friendship added.";
+            } else {
+                return "Second user doesn't exist.";
+            }
+        } else {
+            return "First user doesn't exist.";
+        }
+    }
+
+
 }

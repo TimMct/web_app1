@@ -1,5 +1,8 @@
 package com.example.accessingdatamysql.architecture;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * This class is just for behaviour tests.
  */
@@ -62,6 +65,43 @@ public class Main {
         System.out.println(second + " notifications: "+second.getLikeNotification());
         //System.out.println(second.getPictures().get(1));
         System.out.println();
+
+
+
+        Set<User> temp = new HashSet<User>();
+
+
+        temp.add(first);
+        temp.add(first);
+        //temp.add(second);
+        temp.remove(first);
+
+
+
+        for(User s : temp){
+            System.out.println(s.getName());
+        }
+
+        System.out.println("___________________________________________________________________________________");
+
+        System.out.print("\nFriends of "+first.getName()+" are: ");
+        for(User friend : first.getFriends())
+            System.out.print(friend.getName());
+
+        System.out.print("\nFriends of "+second.getName()+" are: ");
+        for(User friend : second.getFriends())
+            System.out.print(friend.getName());
+
+
+        second.addFriend(first);
+
+        System.out.print("\nFriends of "+first.getName()+" are: ");
+        for(User friend : first.getFriends())
+            System.out.print(friend.getName());
+
+        System.out.print("\nFriends of "+second.getName()+" are: ");
+        for(User friend : second.getFriends())
+            System.out.print(friend.getName());
 
     }
 }
