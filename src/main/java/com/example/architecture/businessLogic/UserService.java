@@ -1,8 +1,10 @@
 package com.example.architecture.businessLogic;
 
+import com.example.architecture.accesData.entity.LikeObserver;
 import com.example.architecture.accesData.entity.Picture;
 import com.example.architecture.accesData.entity.User;
 import com.example.architecture.accesData.UserFactory;
+import com.example.architecture.accesData.repo.LikeObserverRepository;
 import com.example.architecture.accesData.repo.PictureRepository;
 import com.example.architecture.accesData.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,14 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private LikeObserverRepository observerRepository;
+
+    @Autowired
     private PictureRepository pictureRepository;
 
     public boolean createUser(String name, String email, String type){
         User user;
+        LikeObserver observer;
         if(StringUtils.isEmpty(name))
             return false;
         if(StringUtils.isEmpty(email) || !email.contains("@email.com"))
@@ -28,9 +34,14 @@ public class UserService {
                 !type.equalsIgnoreCase("MEDIC") &&
                 !type.equalsIgnoreCase("TEACHER"))
             return false;
-
         user = new UserFactory().getUserByType(name, email, type);
+        if(user.equals(null))
+            return false;
+        observer = new LikeObserver();
+        observerRepository.save(observer);
+        user.attachObserver(observer);
         userRepository.save(user);
+        observerRepository.save(observer);
         return true;
     }
 
@@ -75,7 +86,6 @@ public class UserService {
         userRepository.deleteAll();
     }
 
-
     public boolean addPictureToUser(String userName, String picName){
         User user;
         Picture picture;
@@ -90,7 +100,6 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
-
 
     public boolean addFriendToUser(Integer firstUserId, Integer secondUserId) {
         User firstFriend, secondFriend;
@@ -109,4 +118,68 @@ public class UserService {
             return false;
         }
     }
+
+    public boolean removeFriend(Integer firstUserId, Integer secondUserId){
+        User firstUser, secondUser;
+        if(userRepository.existsById(firstUserId)){
+            if(userRepository.existsById(secondUserId)){
+                firstUser = userRepository.getUserByUserId(firstUserId);
+                secondUser = userRepository.getUserByUserId(secondUserId);
+                firstUser.removeFriend(secondUser);
+                userRepository.save(firstUser);
+                userRepository.save(secondUser);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean likePic(Integer firstUserId, Integer secondUserId, Integer picPos){
+        User firstUser, secondUser;
+        Picture likedPic;
+        if(userRepository.existsById(firstUserId)){
+            if(userRepository.existsById(secondUserId)){
+                firstUser = userRepository.getUserByUserId(firstUserId);
+                secondUser = userRepository.getUserByUserId(secondUserId);
+                likedPic = firstUser.likePicture(secondUser, picPos);
+                if(likedPic.equals(null))
+                    return false;
+                pictureRepository.save(likedPic);
+                userRepository.save(firstUser);
+                userRepository.save(secondUser);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean unlikePic(Integer firstUserId, Integer secondUserId, Integer picPos){
+        User firstUser, secondUser;
+        Picture unlikePic;
+        if(userRepository.existsById(firstUserId)){
+            if(userRepository.existsById(secondUserId)){
+                firstUser = userRepository.getUserByUserId(firstUserId);
+                secondUser = userRepository.getUserByUserId(secondUserId);
+                unlikePic = firstUser.unlikePicture(secondUser, picPos);
+                if(unlikePic.equals(null)){
+                    return false;
+                }
+                pictureRepository.save(unlikePic);
+                userRepository.save(firstUser);
+                userRepository.save(secondUser);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }

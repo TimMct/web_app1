@@ -41,7 +41,8 @@ public class Picture {
     @Column
     private Integer nrOfLikes;
 
-    @Transient
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<User> likerList;
 
 

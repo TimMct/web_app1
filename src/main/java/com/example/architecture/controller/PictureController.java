@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/picture")
 public class PictureController {
 
+    private String fullPathPicture = "D:\\Facultate\\An3\\Sem2\\PS\\web-app\\pictures\\";
+
     @Autowired
     private PictureService pictureService;
 
@@ -24,49 +26,24 @@ public class PictureController {
      * retrieve all pictures from database
      * @return the json file with all picture objects
      */
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/getAll")
     public Iterable<Picture> getAllPictures(){
         return pictureService.findAllPictures();
     }
 
-
     @PostMapping(path = "/getByName")
-    public Picture getPicName(String picName){
+    public Picture getByName(String picName){
         return pictureService.getPicByName(picName);
     }
-
 
     @GetMapping(path = "/deleteAll")
     public void deleteAllPics(){
         pictureService.deleteAll();
     }
 
-//    /**
-//     * incomplete method
-//     * this endpoint intends to open a JFrame window with the picture
-//     * @return message
-//     */
-//    @PostMapping(path = "/show")
-//    public String show(){
-//
-//        //JFrame frame = new JFrame(name);
-//        //ImageIcon icon = new ImageIcon("D:\\Facultate\\An3\\Sem2\\PS\\web-app\\pictures\\" + name);
-//        //JLabel label = new JLabel(icon);
-//        //frame.add(label);
-//        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        //frame.pack();
-//        //frame.setVisible(true);
-//        /*if(pictureRepository.count() > 0L){
-//            Iterable<Picture> allPics = pictureRepository.findAll();
-//            for(Picture p : allPics){
-//                //p.openPic();
-//                //System.out.println(p.getName());
-//                break;
-//
-//            }
-//        }*/
-//        return "OK";
-//    }
-
+    @PostMapping(path = "/getByUserName")
+    public Picture getByUserName(String userName){
+        return pictureService.getPicByUserName(userName);
+    }
 
 }

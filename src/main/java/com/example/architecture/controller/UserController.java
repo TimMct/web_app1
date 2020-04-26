@@ -135,4 +135,34 @@ public class UserController {
     }
 
 
+    @PostMapping(path = "/remFriend")
+    public String remFriend(Integer firstUserId, Integer secondUserId){
+        boolean removed = userService.removeFriend(firstUserId, secondUserId);
+        if(removed){
+            return "Friend was removed successfully.";
+        } else {
+            return "Something went wrong.";
+        }
+    }
+
+
+    @PostMapping(path = "/likePicture")
+    public String likePicture(Integer firstUserId, Integer secondUserId, Integer picPos){
+        boolean liked = userService.likePic(firstUserId, secondUserId, picPos);
+        if(liked){
+            return "Picture was liked successfully.";
+        } else {
+            return "Something went wrong.";
+        }
+    }
+
+    @PostMapping(path = "/unlikePicture")
+    public String unlikePicture(Integer firstUserId, Integer secondUserId, Integer picPos){
+        boolean unlike = userService.unlikePic(firstUserId, secondUserId, picPos);
+        if(unlike){
+            return "Picture was unliked successfully.";
+        } else {
+            return "Something went wrong.";
+        }
+    }
 }

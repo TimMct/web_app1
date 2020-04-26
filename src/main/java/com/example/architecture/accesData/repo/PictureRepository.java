@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface PictureRepository extends JpaRepository<Picture, Integer> {
 
     public Picture getPictureByName(String name);
+
+    public Picture getPictureByOwnerName(String name);
 }
