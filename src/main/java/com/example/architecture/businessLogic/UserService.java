@@ -11,18 +11,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+/**
+ * @author TimoteiMolcut
+ * This class deals with all the operations made on user and it makes verifications
+ * so the controller class isn't overloaded.
+ */
 @Service
 public class UserService {
-
+    /**
+     * This fields deal with storing data in the data base.
+     */
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private LikeObserverRepository observerRepository;
-
     @Autowired
     private PictureRepository pictureRepository;
 
+    /**
+     * This method verifies the parameters to be ok the using a UserFactory it retrieves the user.
+     * @param name
+     * @param email
+     * @param type
+     * @return
+     */
     public boolean createUser(String name, String email, String type){
         User user;
         LikeObserver observer;
@@ -49,6 +61,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    /**
+     * Update the name of the user knowing it's old name.
+     * @param oldName
+     * @param newName
+     * @return
+     */
     public boolean updateName(String oldName, String newName){
         User user;
         if(StringUtils.isEmpty(oldName))
@@ -61,6 +79,12 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Update the email of the user knowing it's old email.
+     * @param oldEmail
+     * @param newEmail
+     * @return
+     */
     public boolean updateEmail(String oldEmail, String newEmail){
         User user;
         if(StringUtils.isEmpty(oldEmail))
@@ -73,6 +97,11 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Delete the user that has this id.
+     * @param id
+     * @return
+     */
     public boolean deleteById(Integer id){
         if(userRepository.existsById(id)){
             userRepository.deleteById(id);
@@ -86,6 +115,12 @@ public class UserService {
         userRepository.deleteAll();
     }
 
+    /**
+     * Add a picture to a user providing their names.
+     * @param userName
+     * @param picName
+     * @return
+     */
     public boolean addPictureToUser(String userName, String picName){
         User user;
         Picture picture;
@@ -101,6 +136,12 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Remove the picture from the user.
+     * @param userName
+     * @param picName
+     * @return
+     */
     public boolean removePictureFromUser(String userName, String picName){
         User user;
         Picture picture;
@@ -115,6 +156,12 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Add a friend to a user knowing both the ids. The friendship is made only if the ids are valid.
+     * @param firstUserId
+     * @param secondUserId
+     * @return
+     */
     public boolean addFriendToUser(Integer firstUserId, Integer secondUserId) {
         User firstFriend, secondFriend;
         if (userRepository.existsById(firstUserId)) {
@@ -133,6 +180,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Remove a friend from the current user.
+     * @param firstUserId
+     * @param secondUserId
+     * @return
+     */
     public boolean removeFriend(Integer firstUserId, Integer secondUserId){
         User firstUser, secondUser;
         if(userRepository.existsById(firstUserId)){
@@ -151,6 +204,14 @@ public class UserService {
         }
     }
 
+    /**
+     * A user likes the picture of another user, providing the users ids and the position of the picture in
+     * the second's user pictureList.
+     * @param firstUserId
+     * @param secondUserId
+     * @param picPos
+     * @return
+     */
     public boolean likePic(Integer firstUserId, Integer secondUserId, Integer picPos){
         User firstUser, secondUser;
         Picture likedPic;
@@ -173,6 +234,13 @@ public class UserService {
         }
     }
 
+    /**
+     * Remove the like if is existent.
+     * @param firstUserId
+     * @param secondUserId
+     * @param picPos
+     * @return
+     */
     public boolean unlikePic(Integer firstUserId, Integer secondUserId, Integer picPos){
         User firstUser, secondUser;
         Picture unlikePic;

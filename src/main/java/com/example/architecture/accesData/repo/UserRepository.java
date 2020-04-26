@@ -6,14 +6,29 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Timotei Molcut
- * interface needed to acces the database and performe crud opperations for users
+ * Interface needed to acces the database and performe crud opperations for users.
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+    /**
+     * Get the user, providing the id.
+     * @param userId
+     * @return
+     */
     public User getUserByUserId(Integer userId);
 
+    /**
+     * Get the user, providing it's name.
+     * @param name
+     * @return
+     */
     public User getUserByName(String name);
 
+    /**
+     * Get the user providing it's email.
+     * @param email
+     * @return
+     */
     public User getUserByEmail(String email);
 }

@@ -17,9 +17,8 @@ import static org.mockito.Mockito.*;
 
 /**
  * @author Timotei Molcut
- * class for user crud tests
+ * class for user basic tests
  */
-
 public class UserTests {
 
     private User dummyEngineer;
@@ -31,9 +30,6 @@ public class UserTests {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
     private UserFacade userFacade;
-
-
-
 
     @Before
     public void init(){
@@ -50,6 +46,9 @@ public class UserTests {
         verify(userRepo).findById(1);
     }
 
+    /**
+     * This tests the case is which the attributes for a user aren't good.
+     */
     @Test
     public void createWrongUser(){
         //this will be null because of bad credentials
@@ -66,7 +65,6 @@ public class UserTests {
         assertEquals(updatedMedic, userFacade.updateName(dummyMedic.getName(), updatedMedic.getName()));
         verify(userRepo).updateName(dummyMedic.getName(), updatedMedic.getName());
     }
-
 
     @Test
     public void updateEmail(){
@@ -92,7 +90,6 @@ public class UserTests {
         assertEquals(dummyMedic, userFacade.addFriend(dummyEngineer));
         verify(userRepo).addFriend(dummyEngineer);
     }
-
 
     @Test
     public void likePicture(){

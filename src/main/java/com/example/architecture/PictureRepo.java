@@ -5,7 +5,7 @@ import com.example.architecture.accesData.entity.Picture;
 import org.springframework.stereotype.Repository;
 
 /**
- * interface for test
+ * This interface mocks the abilities of PictureRepository.
  */
 @Repository
 public interface PictureRepo {

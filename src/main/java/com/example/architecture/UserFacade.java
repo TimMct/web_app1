@@ -2,6 +2,10 @@ package com.example.architecture;
 
 import com.example.architecture.accesData.entity.User;
 
+/**
+ * @author TimoteiMolcut
+ * This class will encapsulate all the methods of UserRepo which will be mocked for tests.
+ */
 public class UserFacade {
 
     UserRepo userRepo;

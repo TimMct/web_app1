@@ -17,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     *
+     * Add a new user.
      * @param name
      * @param email
      * @param type
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     /**
-     * read endpoint
+     * Get all the existent users.
      * @return all the user in the database
      */
     @GetMapping(path="/all")
@@ -102,7 +102,7 @@ public class UserController {
 
 
     /**
-     *
+     * Add a picture to user.
      * @param userName
      * @param picName
      * @return
@@ -118,6 +118,12 @@ public class UserController {
 
     }
 
+    /**
+     * Remove the picture from the user.
+     * @param userName
+     * @param picName
+     * @return
+     */
     @PostMapping(path = "/remPicture")
     public String remPicture(String userName, String picName){
         boolean removed = userService.removePictureFromUser(userName, picName);
@@ -129,7 +135,7 @@ public class UserController {
     }
 
     /**
-     *
+     * Add a friend to the current user.
      * @param firstUserId
      * @param secondUserId
      * @return
@@ -144,6 +150,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Remove the friend from the surrent user.
+     * @param firstUserId
+     * @param secondUserId
+     * @return
+     */
     @PostMapping(path = "/remFriend")
     public String remFriend(Integer firstUserId, Integer secondUserId){
         boolean removed = userService.removeFriend(firstUserId, secondUserId);
@@ -154,6 +166,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Like another's user picture.
+     * @param firstUserId
+     * @param secondUserId
+     * @param picPos
+     * @return
+     */
     @PostMapping(path = "/likePicture")
     public String likePicture(Integer firstUserId, Integer secondUserId, Integer picPos){
         boolean liked = userService.likePic(firstUserId, secondUserId, picPos);
@@ -164,6 +183,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Unlike another's user picture.
+     * @param firstUserId
+     * @param secondUserId
+     * @param picPos
+     * @return
+     */
     @PostMapping(path = "/unlikePicture")
     public String unlikePicture(Integer firstUserId, Integer secondUserId, Integer picPos){
         boolean unlike = userService.unlikePic(firstUserId, secondUserId, picPos);

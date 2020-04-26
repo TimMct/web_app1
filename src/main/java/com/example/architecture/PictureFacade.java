@@ -1,10 +1,16 @@
 package com.example.architecture;
 
 import com.example.architecture.accesData.entity.Picture;
-import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author TimoteiMolcut
+ * This implements the facade pattern for tests. All these methods will encapsulate the methods of PictureRepo.
+ */
 public class PictureFacade {
 
+    /**
+     * This will be mocked.
+     */
     PictureRepo  pictureRepo;
 
     public PictureFacade(PictureRepo pictureRepo){

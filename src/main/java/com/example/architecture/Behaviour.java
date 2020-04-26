@@ -8,11 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * @author TimoteiMolcut
  * This class is just for behaviour tests.
  */
 public class Behaviour {
-
-
     public static void main(String[] args) {
         UserFactory factory = new UserFactory();
         User first = factory.getUserByType("firstUser", "first@email.com", "engineer");

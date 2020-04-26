@@ -1,13 +1,13 @@
 package com.example.architecture.accesData.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Timotei Molcut
+ * This is the most important class because the user is most used in this application.
  */
 @Entity
 public class User {
@@ -36,13 +36,22 @@ public class User {
     @OneToMany(mappedBy = "owner", cascade=CascadeType.REMOVE)
     private List<Picture> pictures;
 
+    /**
+     * This is the observer that updates the string of notifications for likes.
+     */
     @OneToOne(cascade = CascadeType.REMOVE)
     private LikeObserver likeObserver;
 
+    /**
+     * This is the string of notifications.
+     */
     @Column
     private String likeNotification;
 
 
+    /**
+     * This is the list of friends for the current user.
+     */
     @ManyToMany
     @JsonIgnore
     private List<User> friends;
@@ -51,7 +60,6 @@ public class User {
     }
 
     /**
-     *
      * @param name
      * @param email
      */
@@ -79,10 +87,18 @@ public class User {
         this.email = email;
     }
 
+    /**
+     * This method adds a picture to the current user.
+     * @param picture
+     */
     public void addPicture(Picture picture){
         this.pictures.add(picture);
     }
 
+    /**
+     * This method removes a picture from the current user.
+     * @param picture
+     */
     public void remPicture(Picture picture){
         this.pictures.remove(picture);
     }
@@ -91,12 +107,20 @@ public class User {
         return this.pictures;
     }
 
+    /**
+     * This method return the new notification and then it is reset to an empty notification.
+     * @return
+     */
     public String getLikeNotification(){
         String toReturn = this.likeNotification;
         this.likeNotification = "";//modify to empty notification
         return toReturn;
     }
 
+    /**
+     * This method changes the current notification after the update made by LikeObserver.
+     * @param newNotification
+     */
     public void changeLikeNotification(String newNotification){
         this.likeNotification = newNotification;
     }
@@ -106,6 +130,10 @@ public class User {
     }
 
 
+    /**
+     * This method add a new LikeObserver dedicated for this user.
+     * @param observer
+     */
     public void attachObserver(LikeObserver observer){
         observer.setUser(this);
         this.likeObserver = observer;
@@ -118,8 +146,8 @@ public class User {
      * @param picturePos
      */
     public Picture likePicture(User user, int picturePos){
+        //a user can't like it's own pictures
         if(this.equals(user)){
-            //System.out.println("somebody tries to like his/her own picture");
             return null;
         }
         List<Picture> allPicsOfUser = user.getPictures();
@@ -130,11 +158,11 @@ public class User {
                 user.likeObserver.update(this, picturePos);
                 return likedPicture;
             } else {
-                //System.out.println(this.getName()+" already liked "+likedPicture.getName());
+                //user already liked this picture
                 return null;
             }
         } else {
-            //System.out.println(user+" doesn't have pic#"+picturePos);
+            //there is no picture on this position
             return null;
         }
     }
@@ -166,6 +194,10 @@ public class User {
     }
 
 
+    /**
+     * This user adds the other user as a friend only if the aren't the same and only if they are not already friends.
+     * @param user
+     */
     public void addFriend(User user){
         if(!this.equals(user) && !this.friends.contains(user)){
             this.friends.add(user);
@@ -173,6 +205,10 @@ public class User {
         }
     }
 
+    /**
+     * This user can remove his friend if it exists.
+     * @param user
+     */
     public void removeFriend(User user){
         if(!this.equals(user) && this.friends.contains(user)){
             this.friends.remove(user);

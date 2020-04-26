@@ -1,7 +1,13 @@
 package com.example.architecture;
 
 import com.example.architecture.accesData.entity.User;
+import org.springframework.stereotype.Repository;
 
+/**
+ * @author TimoteiMolcut
+ * This class will be mocked to simulate UserRepository.
+ */
+@Repository
 public interface UserRepo {
 
     User findById(Integer id);

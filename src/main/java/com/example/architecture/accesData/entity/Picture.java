@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * @author Timotei Molcut
- * class needed to reprezent a picture by storing the absolute path to the picture file stored on the current machine
+ * This class is needed to reprezent a picture by storing the absolute path to the picture file
+ * stored on the current machine.
  */
 @Entity
 public class Picture {
@@ -41,6 +42,9 @@ public class Picture {
     @Column
     private Integer nrOfLikes;
 
+    /**
+     * A picture must store all the users that liked it in order to not let them like it again.
+     */
     @OneToMany(cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<User> likerList;
@@ -51,6 +55,11 @@ public class Picture {
      */
     public Picture(){}
 
+    /**
+     * Basic constructor. Only the owner and the name of the picture is needed.
+     * @param owner
+     * @param name
+     */
     public Picture(User owner, String name){
         this.owner = owner;
         this.name = name;
@@ -75,40 +84,33 @@ public class Picture {
         this.owner = owner;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void addLike(User user){
-        this.nrOfLikes++;
-        this.likerList.add(user);
-    }
-
-    public void deleteLike(User user){
-        this.nrOfLikes--;
-        this.likerList.remove(user);
-    }
-
     public Integer getNrOfLikes(){
         return this.nrOfLikes;
     }
 
 
-    /**
-     * method needed to open a picture in a JFrame window
-     * here the absolute path for the file is saved, only the name is dynamic
-     * @return void
-     */
-    public void openPic(){
-        JFrame frame = new JFrame();
-        ImageIcon icon = new ImageIcon("D:\\Facultate\\An3\\Sem2\\PS\\web-app\\pictures\\" + name);
-        JLabel label = new JLabel(icon);
-        frame.add(label);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    public void setName(String name) {
+        this.name = name;
     }
 
+    /**
+     * This method increases the number of likes for a picture and the user that liked the picture is
+     * stored in the list of likers.
+     * @param user
+     */
+    public void addLike(User user){
+        this.nrOfLikes++;
+        this.likerList.add(user);
+    }
+
+    /**
+     * This method does the opposite of the previous method.
+     * @param user
+     */
+    public void deleteLike(User user){
+        this.nrOfLikes--;
+        this.likerList.remove(user);
+    }
 
     @Override
     public String toString() {

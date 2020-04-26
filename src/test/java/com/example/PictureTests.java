@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 /**
  * @author Timotei Molcut
- * class for picture crud tests
+ * Class for picture basic tests. All the tests use mock methods.
  */
 public class PictureTests {
 
@@ -45,7 +45,6 @@ public class PictureTests {
         assertEquals(dummy, pictureFacade.findByName(picName));
         verify(pictureRepo).findByName(picName);
     }
-
 
     @Test
     public void testFindByOwnerName(){

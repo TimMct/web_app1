@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Timotei Molcut
- * class needed to manage the access to endpoints for the picture
- * for the path http://localhost:8080/picture
+ * class needed to manage the access to endpoints for the picture.
  */
 @RestController
 @RequestMapping(path = "/picture")
 public class PictureController {
 
+    /**
+     * This will be used to open the picture from the machine.
+     */
     private String relativePath = "/src/main/resources/pictures";
 
     @Autowired
@@ -31,16 +33,29 @@ public class PictureController {
         return pictureService.findAllPictures();
     }
 
+    /**
+     * Get the picture providing it's name.
+     * @param picName
+     * @return
+     */
     @PostMapping(path = "/getByName")
     public Picture getByName(String picName){
         return pictureService.getPicByName(picName);
     }
 
+    /**
+     * Delete all pictures.
+     */
     @GetMapping(path = "/deleteAll")
     public void deleteAllPics(){
         pictureService.deleteAll();
     }
 
+    /**
+     * Get a picture by username.
+     * @param userName
+     * @return
+     */
     @PostMapping(path = "/getByUserName")
     public Picture getByUserName(String userName){
         return pictureService.getPicByUserName(userName);
