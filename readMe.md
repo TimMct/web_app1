@@ -6,9 +6,9 @@ This repo contains a web app named FakeBook, because it's inspired from FaceBook
 
 There are 3 kinds of user categorised by their job: engineers, medics and teachers. Each user can add another user as friend. Also, they can add pictures and like other pictures. If a user has a picture liked by someone else then that user will be notified.
 
-Design patterns:  + factory is used to make 3 kinds of user for the app. 
-                  + observer is used when a user likes another's user photo.
-                  + facade is used for tests.
+Design patterns:  * factory is used to make 3 kinds of user for the app. 
+                  * observer is used when a user likes another's user photo.
+                  * facade is used for tests.
 
 
 ### implementation
