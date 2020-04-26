@@ -30,4 +30,6 @@ When a user likes another's user picture, the second user will have a new notifi
 
 ### factory pattern
 
-The factory pattern is used to created a user in a specific manner, hence by a type. I thought that grouping users by their job is a good ideea so I thought that the most important jobs (especially nowadays) are these: engineers, medics and teachers. The way the factory choses to create an user or another is by a string. This string specifies which type of user we want to have. For the moment the 3 subclasses of user don't have a special attribute.
+The factory pattern is used to created a user in a specific manner, hence by a type. I thought that grouping users by their job is a good ideea so I thought that the most important jobs (especially nowadays) are these: engineers, medics and teachers. The way the factory choses to create an user or another is by a string. This string specifies which type of user we want to have. For the moment the 3 subclasses of user don't have a special attribute.  
+* Item 1
+* Item 2
