@@ -2,7 +2,7 @@ package com.example.architecture;
 
 import com.example.architecture.accesData.entity.Picture;
 import com.example.architecture.accesData.entity.User;
-import com.example.architecture.accesData.UserFactory;
+import com.example.architecture.accesData.entity.UserFactory;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/picture")
 public class PictureController {
 
-    private String fullPathPicture = "D:\\Facultate\\An3\\Sem2\\PS\\web-app\\pictures\\";
+    private String relativePath = "/src/main/resources/pictures";
 
     @Autowired
     private PictureService pictureService;

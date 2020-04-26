@@ -3,7 +3,7 @@ package com.example.architecture.businessLogic;
 import com.example.architecture.accesData.entity.LikeObserver;
 import com.example.architecture.accesData.entity.Picture;
 import com.example.architecture.accesData.entity.User;
-import com.example.architecture.accesData.UserFactory;
+import com.example.architecture.accesData.entity.UserFactory;
 import com.example.architecture.accesData.repo.LikeObserverRepository;
 import com.example.architecture.accesData.repo.PictureRepository;
 import com.example.architecture.accesData.repo.UserRepository;

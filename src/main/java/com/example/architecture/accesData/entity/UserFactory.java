@@ -1,4 +1,4 @@
-package com.example.architecture.accesData;
+package com.example.architecture.accesData.entity;
 
 import com.example.architecture.accesData.entity.Engineer;
 import com.example.architecture.accesData.entity.Medic;

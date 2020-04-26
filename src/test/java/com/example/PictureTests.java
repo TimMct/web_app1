@@ -1,16 +1,14 @@
-package com.example.webapp;
-
+package com.example;
 import com.example.architecture.PictureFacade;
 import com.example.architecture.PictureRepo;
 import com.example.architecture.accesData.entity.Picture;
 import com.example.architecture.accesData.entity.User;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -18,54 +16,43 @@ import static org.mockito.Mockito.*;
  * @author Timotei Molcut
  * class for picture crud tests
  */
-//@RunWith(MockitoJUnitRunner.class)
 public class PictureTests {
 
-    public Picture dummy;
-    private PictureFacade pictureFacade;
     @Mock
     PictureRepo pictureRepo;
-
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
+    private PictureFacade pictureFacade;
+    private Picture dummy;
 
     @Before
-    public void setUp(){
-        dummy = new Picture(new User(), "eminescu1.jpg");
+    public void init(){
         pictureFacade = new PictureFacade(pictureRepo);
+        dummy = new Picture(new User("first", "first@email.com"), "emi.jpg");
     }
 
     @Test
     public void testFindById(){
-
         when(pictureRepo.findById(1)).thenReturn(dummy);
         assertEquals(dummy, pictureFacade.findById(1));
         verify(pictureRepo).findById(1);
-
-    }
-
-
-
-
-
-
-    /*@Test
-    public void deletePicture() {
-        long countFirst;
-        Picture inserted;
-        inserted = new Picture();
-        countFirst = pictureRepository.count();
-        pictureRepository.save(inserted);
-        pictureRepository.deleteById(2);
-        assertEquals(countFirst, pictureRepository.count());
     }
 
     @Test
-    public void retrievePicture() {
-        Picture inserted, retrieved;
-        inserted = new Picture();
-        pictureRepository.save(inserted);
-        retrieved = pictureRepository.findById(1).orElse(null);
-        assertEquals(inserted, retrieved);
-    }*/
+    public void testFindByName(){
+        String picName = "emi.jpg";
+        when(pictureRepo.findByName(picName)).thenReturn(dummy);
+        assertEquals(dummy, pictureFacade.findByName(picName));
+        verify(pictureRepo).findByName(picName);
+    }
+
+
+    @Test
+    public void testFindByOwnerName(){
+        String ownerName = "first";
+        when(pictureRepo.findByUserName(ownerName)).thenReturn(dummy);
+        assertEquals(dummy, pictureFacade.findByUserName(ownerName));
+        verify(pictureRepo).findByUserName(ownerName);
+    }
+    
 }

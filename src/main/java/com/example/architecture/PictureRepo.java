@@ -2,12 +2,18 @@ package com.example.architecture;
 
 
 import com.example.architecture.accesData.entity.Picture;
+import org.springframework.stereotype.Repository;
 
 /**
  * interface for test
  */
+@Repository
 public interface PictureRepo {
 
-    public Picture findById(Integer id);
+    Picture findById(Integer id);
+
+    Picture findByName(String name);
+
+    Picture findByUserName(String name);
 
 }

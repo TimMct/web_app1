@@ -1,9 +1,7 @@
-package com.example.webapp;
+package com.example;
 
 import com.example.architecture.controller.UserController;
 import org.junit.Before;
-
-import static org.junit.Assert.assertEquals;
 
 
 /**
