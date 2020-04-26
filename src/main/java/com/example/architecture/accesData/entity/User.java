@@ -83,6 +83,10 @@ public class User {
         this.pictures.add(picture);
     }
 
+    public void remPicture(Picture picture){
+        this.pictures.remove(picture);
+    }
+
     public List<Picture> getPictures(){
         return this.pictures;
     }

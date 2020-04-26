@@ -118,6 +118,16 @@ public class UserController {
 
     }
 
+    @PostMapping(path = "/remPicture")
+    public String remPicture(String userName, String picName){
+        boolean removed = userService.removePictureFromUser(userName, picName);
+        if(removed){
+            return "Picture was removed";
+        } else {
+            return "Something went wrong.";
+        }
+    }
+
     /**
      *
      * @param firstUserId
@@ -134,7 +144,6 @@ public class UserController {
         }
     }
 
-
     @PostMapping(path = "/remFriend")
     public String remFriend(Integer firstUserId, Integer secondUserId){
         boolean removed = userService.removeFriend(firstUserId, secondUserId);
@@ -144,7 +153,6 @@ public class UserController {
             return "Something went wrong.";
         }
     }
-
 
     @PostMapping(path = "/likePicture")
     public String likePicture(Integer firstUserId, Integer secondUserId, Integer picPos){

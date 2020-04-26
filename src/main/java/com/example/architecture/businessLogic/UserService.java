@@ -101,6 +101,20 @@ public class UserService {
         return true;
     }
 
+    public boolean removePictureFromUser(String userName, String picName){
+        User user;
+        Picture picture;
+        if(StringUtils.isEmpty(userName))
+            return false;
+        if(StringUtils.isEmpty(picName) || !picName.contains(".jpg"))
+            return false;
+        user = userRepository.getUserByName(userName);
+        picture = pictureRepository.getPictureByName(picName);
+        user.remPicture(picture);
+        userRepository.save(user);
+        return true;
+    }
+
     public boolean addFriendToUser(Integer firstUserId, Integer secondUserId) {
         User firstFriend, secondFriend;
         if (userRepository.existsById(firstUserId)) {

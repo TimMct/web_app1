@@ -54,5 +54,5 @@ public class PictureTests {
         assertEquals(dummy, pictureFacade.findByUserName(ownerName));
         verify(pictureRepo).findByUserName(ownerName);
     }
-    
+
 }
