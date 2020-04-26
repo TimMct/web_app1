@@ -6,9 +6,10 @@ This repo contains a web app named FakeBook, because it's inspired from FaceBook
 
 There are 3 kinds of user categorised by their job: engineers, medics and teachers. Each user can add another user as friend. Also, they can add pictures and like other pictures. If a user has a picture liked by someone else then that user will be notified.
 
-Design patterns:  * factory is used to make 3 kinds of user for the app. 
-                  * observer is used when a user likes another's user photo.
-                  * facade is used for tests.
+Design patterns:  
+* factory is used to make 3 kinds of user for the app.
+* observer is used when a user likes another's user photo.
+* facade is used for tests.
 
 
 ### implementation
@@ -31,5 +32,3 @@ When a user likes another's user picture, the second user will have a new notifi
 ### factory pattern
 
 The factory pattern is used to created a user in a specific manner, hence by a type. I thought that grouping users by their job is a good ideea so I thought that the most important jobs (especially nowadays) are these: engineers, medics and teachers. The way the factory choses to create an user or another is by a string. This string specifies which type of user we want to have. For the moment the 3 subclasses of user don't have a special attribute.  
-* Item 1
-* Item 2
