@@ -1,28 +1,33 @@
 # web app
 
-FakeBook
+## FakeBook : where proffessionals meet
 
 This repo contains a web app named FakeBook, because it's inspired from FaceBook, but it's not the same thing (it doesn't have all the responsibilities).
 
-There are users who can post a picture of their own. These users can send friend request between each others and only if two users are friends then they can see all of their pictures (unless they can see only the main picture). Also, those who are friends can like other user's pictures.
+There are 3 kinds of user categorised by their job: engineers, medics and teachers. Each user can add another user as friend. Also, they can add pictures and like other pictures. If a user has a picture liked by someone else then that user will be notified.
 
-There is also an admin who monitorises the activity of all the users (like when a user enters/leaves), and the admin can see the most liked pictures and the most popular user (the one with that has many friends).
-
-Design patterns:  + factory is used to make 2 kinds of entities which work with the app (users and admin). 
-                  + observer is used when a user sends a friend request to another user.
-                  + facade ...
+Design patterns:  + factory is used to make 3 kinds of user for the app. 
+                  + observer is used when a user likes another's user photo.
+                  + facade is used for tests.
 
 
-# implementation
+### implementation
 
-Till now there are 2 main classes: User and Picture. Between these classes there is a one-to-many relationship. A user can have many pictures, but a picture can have only one owner (user).
+This app was made with the SpringBoot API and it basically persists data with Hibernate API. These data will be used for login of users.
+The User Interface is not yet finished. Till now I implemented the logic of adding a user or a picture in the database alongside with adding a friend to a user and letting a user like another's user pictures. There are classes of controller, of service and of repository for both User and Picture. 
 
-# diagram
+### diagram  
+
+This diagram describes the relations between the main classes of this application. A user can have zero or any number of pictures, hence ther's a one-to-many relationship and also a picture has a owner so the relation is bilateral. A user can have zero or any number of friends and some friends can have the same user as their friend. Since a friend is basically another user, we have here a many-to-many relation for the same class (recusrion). A user must have a LikeObserver which sees if the user has been liked by another user. Then the LikeObserver creates a notification for the user (this will hang somewhere on the web page). Also, a picture must keep track of the users that liked it so this way, a user cannot like a picture multiple times. Hence, a picture has a list of users who liked that picture.   
+
 <img src="new_diagram.png"
      alt="diag"
      style="float: left; margin-right: 10px;" />
 
-# observer pattern
+### observer pattern
 
-Between User and Picture there is a one-to-many relationship. So there must be implemented an observer pattern. For example if one user modifies its name or email then all his pictures must acknowledge this change. So this is the main need reason why an observer pattern is needed.
+When a user likes another's user picture, the second user will have a new notification from the LikeObserver. This notification is made in the moment when the picture gets liked for the first time (and the only one). Basically, each user has a string for notifications. In the beggining this string is empty and when the moment comes the string takes a form of notification says to the current user that he/she has a new like from another user. Each user has it's own LikeObserver so the surveillance doesn't get messed up, because a LikeObserver deals with only one user.  
 
+### factory pattern
+
+The factory pattern is used to created a user in a specific manner, hence by a type. I thought that grouping users by their job is a good ideea so I thought that the most important jobs (especially nowadays) are these: engineers, medics and teachers. The way the factory choses to create an user or another is by a string. This string specifies which type of user we want to have. For the moment the 3 subclasses of user don't have a special attribute.
