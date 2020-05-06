@@ -32,3 +32,10 @@ When a user likes another's user picture, the second user will have a new notifi
 ### factory pattern
 
 The factory pattern is used to created a user in a specific manner, hence by a type. I thought that grouping users by their job is a good ideea so I thought that the most important jobs (especially nowadays) are these: engineers, medics and teachers. The way the factory choses to create an user or another is by a string. This string specifies which type of user we want to have. For the moment the 3 subclasses of user don't have a special attribute.  
+
+### sequence diagram  
+This sequence diagram describes two flows: the flow of creating a user and the flow of adding a friend (user) to an existing user.  
+<img src="sequence_diag.png"
+     alt="diag"
+     style="float: left; margin-right: 10px;" />
+
