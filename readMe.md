@@ -1,8 +1,8 @@
 # web app
 
-## FakeBook : where professionals meet
+## ProBook : where professionals meet
 
-This repo contains a web app named FakeBook, because it's inspired from FaceBook, but it's not the same thing (it doesn't have all the responsibilities).
+This repo contains a web app named Probook, because it's inspired from FaceBook, but it's not the same thing (it doesn't have all the responsibilities).
 
 There are 3 kinds of user categorised by their job: engineers, medics and teachers. Each user can add another user as friend. Also, they can add pictures and like other pictures. If a user has a picture liked by someone else then that user will be notified.
 
