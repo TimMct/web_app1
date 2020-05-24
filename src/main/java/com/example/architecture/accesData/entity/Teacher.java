@@ -15,7 +15,7 @@ public class Teacher extends User{
      * @param name
      * @param email
      */
-    public Teacher(String name, String email) {
-        super(name, email);
+    public Teacher(String name, String email, String password) {
+        super(name, email, password);
     }
 }

@@ -21,7 +21,7 @@ public class LikeObserver {
     /**
      * This is the user which will be updated (the notification string attribute will be changed).
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private User user;
 
     /**

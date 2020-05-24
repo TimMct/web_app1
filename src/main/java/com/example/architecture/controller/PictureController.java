@@ -3,10 +3,9 @@ package com.example.architecture.controller;
 import com.example.architecture.accesData.entity.Picture;
 import com.example.architecture.businessLogic.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Timotei Molcut
@@ -52,13 +51,13 @@ public class PictureController {
     }
 
     /**
-     * Get a picture by username.
-     * @param userName
+     *
+     * @param email
      * @return
      */
-    @PostMapping(path = "/getByUserName")
-    public Picture getByUserName(String userName){
-        return pictureService.getPicByUserName(userName);
+    @PostMapping(path = "/getByUserEmail", consumes = {"application/json"})
+    public List<Picture> getByUserName(@RequestBody String email){
+        return pictureService.getPicByUserEmail(email);
     }
 
 }

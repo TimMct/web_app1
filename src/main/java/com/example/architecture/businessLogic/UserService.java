@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author TimoteiMolcut
  * This class deals with all the operations made on user and it makes verifications
@@ -35,18 +38,26 @@ public class UserService {
      * @param type
      * @return
      */
-    public boolean createUser(String name, String email, String type){
+    public boolean createUser(String name, String email, String password, String type){
         User user;
         LikeObserver observer;
         if(StringUtils.isEmpty(name))
             return false;
-        if(StringUtils.isEmpty(email) || !email.contains("@email.com"))
+        if(StringUtils.isEmpty(email) || (!email.contains("@yahoo.com") && !email.contains("@gmail.com")))
             return false;
+        if(StringUtils.isEmpty(password)){
+            return false;
+        }
         if(!type.equalsIgnoreCase("ENGINEER") &&
                 !type.equalsIgnoreCase("MEDIC") &&
                 !type.equalsIgnoreCase("TEACHER"))
             return false;
-        user = new UserFactory().getUserByType(name, email, type);
+
+        if(userRepository.existsUserByEmail(email)){
+            return false;
+        }
+
+        user = new UserFactory().getUserByType(name, email, password, type);
         if(user.equals(null))
             return false;
         observer = new LikeObserver();
@@ -56,6 +67,34 @@ public class UserService {
         observerRepository.save(observer);
         return true;
     }
+
+
+    public boolean findUser(String email, String password){
+        return userRepository.existsUserByEmailAndPassword(email, password);
+    }
+
+
+    public List<Picture> getPicByUserEmail(String email){
+        User u = userRepository.getUserByEmail(email);
+        if(u.equals(null))
+            return new ArrayList<Picture>();
+
+        return u.getPictures();
+    }
+
+
+    public List<User> findAllDifferent(String email){
+        List<User> allUsers = userRepository.findAll();
+        for(User u : allUsers){
+            if(u.getEmail().equals(email)){
+                allUsers.remove(u);
+                break;
+            }
+        }
+        return allUsers;
+    }
+
+
 
     public Iterable<User> findAllUsers(){
         return userRepository.findAll();
@@ -115,20 +154,15 @@ public class UserService {
         userRepository.deleteAll();
     }
 
-    /**
-     * Add a picture to a user providing their names.
-     * @param userName
-     * @param picName
-     * @return
-     */
-    public boolean addPictureToUser(String userName, String picName){
+
+    public boolean addPictureToUser(String email, String picName){
         User user;
         Picture picture;
-        if(StringUtils.isEmpty(userName))
+        if(StringUtils.isEmpty(email))
             return false;
         if(StringUtils.isEmpty(picName) || !picName.contains(".jpg"))
             return false;
-        user = userRepository.getUserByName(userName);
+        user = userRepository.getUserByEmail(email);
         picture = new Picture(user, picName);
         pictureRepository.save(picture);
         user.addPicture(picture);
@@ -157,17 +191,17 @@ public class UserService {
     }
 
     /**
-     * Add a friend to a user knowing both the ids. The friendship is made only if the ids are valid.
-     * @param firstUserId
-     * @param secondUserId
+     *
+     * @param firstEmail
+     * @param secondEmail
      * @return
      */
-    public boolean addFriendToUser(Integer firstUserId, Integer secondUserId) {
+    public boolean addFriendToUser(String firstEmail, String secondEmail) {
         User firstFriend, secondFriend;
-        if (userRepository.existsById(firstUserId)) {
-            if (userRepository.existsById(secondUserId)) {
-                firstFriend = userRepository.getUserByUserId(firstUserId);
-                secondFriend = userRepository.getUserByUserId(secondUserId);
+        if (userRepository.existsUserByEmail(firstEmail)) {
+            if (userRepository.existsUserByEmail(secondEmail)) {
+                firstFriend = userRepository.getUserByEmail(firstEmail);
+                secondFriend = userRepository.getUserByEmail(secondEmail);
                 firstFriend.addFriend(secondFriend);
                 userRepository.save(firstFriend);
                 userRepository.save(secondFriend);

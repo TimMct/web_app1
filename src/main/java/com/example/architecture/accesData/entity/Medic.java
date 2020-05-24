@@ -15,7 +15,7 @@ public class Medic extends User {
      * @param name
      * @param email
      */
-    public Medic(String name, String email) {
-        super(name, email);
+    public Medic(String name, String email, String password) {
+        super(name, email, password);
     }
 }

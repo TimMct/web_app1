@@ -4,6 +4,8 @@ import com.example.architecture.accesData.entity.Picture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Timotei Molcut
  * Interface needed to acces the database and performe crud opperations for pictures
@@ -20,9 +22,9 @@ public interface PictureRepository extends JpaRepository<Picture, Integer> {
     public Picture getPictureByName(String name);
 
     /**
-     * Get the picture stored by providing the name of it's owner.
-     * @param name
+     *
+     * @param email
      * @return
      */
-    public Picture getPictureByOwnerName(String name);
+    public List<Picture> getPictureByOwnerEmail(String email);
 }

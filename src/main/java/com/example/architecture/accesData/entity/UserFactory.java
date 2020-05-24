@@ -14,15 +14,15 @@ public class UserFactory {
      * @param type
      * @return
      */
-    public User getUserByType(String name, String email, String type){
+    public User getUserByType(String name, String email, String password, String type){
         if(type == null)
             return null;
         if(type.equalsIgnoreCase("ENGINEER"))
-            return new Engineer(name, email);
+            return new Engineer(name, email, password);
         if(type.equalsIgnoreCase("MEDIC"))
-            return new Medic(name, email);
+            return new Medic(name, email, password);
         if(type.equalsIgnoreCase("TEACHER"))
-            return new Teacher(name, email);
+            return new Teacher(name, email, password);
         return null;
     }
 

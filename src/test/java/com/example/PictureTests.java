@@ -28,7 +28,7 @@ public class PictureTests {
     @Before
     public void init(){
         pictureFacade = new PictureFacade(pictureRepo);
-        dummy = new Picture(new User("first", "first@email.com"), "emi.jpg");
+        dummy = new Picture(new User("first", "first@email.com", ""), "emi.jpg");
     }
 
     @Test

@@ -9,5 +9,8 @@ import javax.persistence.Entity;
 @Entity
 public class Engineer extends User{
     public Engineer(){ }
-    public Engineer(String name, String email) { super(name, email); }
+
+    public Engineer(String name, String email, String password) {
+        super(name, email, password);
+    }
 }

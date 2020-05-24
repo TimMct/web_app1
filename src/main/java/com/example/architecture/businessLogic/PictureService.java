@@ -5,6 +5,8 @@ import com.example.architecture.accesData.repo.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author TimoteiMolcut
  * This class is needed to manage all the verification of managing the data received from the controller.
@@ -44,12 +46,12 @@ public class PictureService {
     }
 
     /**
-     * Get picture providing the name of it's owner.
-     * @param userName
+     *
+     * @param email
      * @return
      */
-    public Picture getPicByUserName(String userName){
-        return pictureRepository.getPictureByOwnerName(userName);
+    public List<Picture> getPicByUserEmail(String email){
+        return pictureRepository.getPictureByOwnerEmail(email);
     }
 
 }

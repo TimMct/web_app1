@@ -1,6 +1,9 @@
 package com.example.architecture.accesData.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,21 +43,29 @@ public class User {
      * This is the observer that updates the string of notifications for likes.
      */
     @OneToOne(cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private LikeObserver likeObserver;
 
     /**
      * This is the string of notifications.
      */
     @Column
+    @JsonIgnore
     private String likeNotification;
 
 
     /**
      * This is the list of friends for the current user.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<User> friends;
+
+    @Column
+    @JsonIgnore
+    private String password;
+
+
 
     public User() {
     }
@@ -63,12 +74,21 @@ public class User {
      * @param name
      * @param email
      */
-    public User(String name, String email){
+    public User(String name, String email, String password){
         this.name = name;
         this.email = email;
+        this.password = password;
         this.likeNotification = new String();
         this.pictures = new ArrayList<Picture>();
         this.friends = new ArrayList<User>();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {

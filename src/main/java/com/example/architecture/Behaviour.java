@@ -14,8 +14,8 @@ import java.util.Set;
 public class Behaviour {
     public static void main(String[] args) {
         UserFactory factory = new UserFactory();
-        User first = factory.getUserByType("firstUser", "first@email.com", "engineer");
-        User second = factory.getUserByType("secondUser", "second@email.com", "teacher");
+        User first = factory.getUserByType("firstUser", "first@email.com", "","engineer");
+        User second = factory.getUserByType("secondUser", "second@email.com", "", "teacher");
 
         if(first.equals(null) || second.equals(null)){
             System.out.println("Something went wrong");

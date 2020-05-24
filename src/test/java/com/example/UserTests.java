@@ -33,9 +33,9 @@ public class UserTests {
 
     @Before
     public void init(){
-        dummyEngineer = new UserFactory().getUserByType("first", "first@email.com", "engineer");
-        dummyMedic = new UserFactory().getUserByType("second", "second@email.com", "medic");
-        dummyTeacher = new UserFactory().getUserByType("third", "third@email.com", "teacher");
+        dummyEngineer = new UserFactory().getUserByType("first", "first@email.com", "", "engineer");
+        dummyMedic = new UserFactory().getUserByType("second", "second@email.com", "", "medic");
+        dummyTeacher = new UserFactory().getUserByType("third", "third@email.com", "", "teacher");
         userFacade = new UserFacade(userRepo);
     }
 
@@ -52,7 +52,7 @@ public class UserTests {
     @Test
     public void createWrongUser(){
         //this will be null because of bad credentials
-        User badCredentials = new UserFactory().getUserByType("aha", "aha@email.co", "blabla");
+        User badCredentials = new UserFactory().getUserByType("aha", "aha@email.co", "", "blabla");
         when(userRepo.createUser("aha", "aha@email.co", "blabla")).thenReturn(badCredentials);
         assertEquals(null, userFacade.createUser("aha", "aha@email.co", "blabla"));
         verify(userRepo).createUser("aha", "aha@email.co", "blabla");
@@ -60,7 +60,7 @@ public class UserTests {
 
     @Test
     public void updateName(){
-        User updatedMedic = new UserFactory().getUserByType("2nd", "second@email.com", "medic");
+        User updatedMedic = new UserFactory().getUserByType("2nd", "second@email.com", "", "medic");
         when(userRepo.updateName(dummyMedic.getName(), updatedMedic.getName())).thenReturn(updatedMedic);
         assertEquals(updatedMedic, userFacade.updateName(dummyMedic.getName(), updatedMedic.getName()));
         verify(userRepo).updateName(dummyMedic.getName(), updatedMedic.getName());
@@ -68,7 +68,7 @@ public class UserTests {
 
     @Test
     public void updateEmail(){
-        User updatedMedic = new UserFactory().getUserByType("second", "2nd@email.com", "medic");
+        User updatedMedic = new UserFactory().getUserByType("second", "2nd@email.com", "", "medic");
         when(userRepo.updateEmail(dummyMedic.getEmail(), updatedMedic.getEmail())).thenReturn(updatedMedic);
         assertEquals(updatedMedic, userFacade.updateEmail(dummyMedic.getEmail(), updatedMedic.getEmail()));
         verify(userRepo).updateEmail(dummyMedic.getEmail(), updatedMedic.getEmail());
