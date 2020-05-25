@@ -2,9 +2,9 @@
 
 ## ProBook : where professionals meet
 
-This repo contains a web app named Probook, because it's inspired from FaceBook, but it's not the same thing (it doesn't have all the responsibilities).
+This repo contains a web app named Probook, because it's inspired from social-media apps (especially FaceBook), but it doesn't have all the services. "Pro" comes from the fact that professionals can meet here and by professionals I mean those people who have 3 kinds of profession: Engineer, Medic & Teacher. I arrived to this concept thinking about the most important professions of our world. Those who invent and solve problem are engineers. Those who heal people are medics. Those who help people (children/youngsters) to grow in knowledge are teachers.
 
-There are 3 kinds of user categorised by their job: engineers, medics and teachers. Each user can add another user as friend. Also, they can add pictures and like other pictures. If a user has a picture liked by someone else then that user will be notified.
+So there are 3 kinds of user, determined by their profession. Each user can add another user as friend. Also, they can add pictures and like other pictures. If a user has a picture liked by someone else then that user will be notified.
 
 Design patterns:  
 * factory is used to make 3 kinds of user for the app.
@@ -15,11 +15,13 @@ Design patterns:
 ### implementation
 
 This app was made with the SpringBoot API and it basically persists data with Hibernate API. These data will be used for login of users.
-The User Interface is not yet finished. Till now I implemented the logic of adding a user or a picture in the database alongside with adding a friend to a user and letting a user like another's user pictures. There are classes of controller, of service and of repository for both User and Picture. 
+The User Interface is made with JavaScript React API. I have implemented the login and signup of a user. If the user is logged in then he/she can add a picture on his/her account or see other users. The current user can add friends the user that he wants. If two users are friend then they can like each others photos.  
+I made some get/post requests in the controllers that receive the parameters in their body (because it's safer to do so). After the parameters are received (for post methods), the services are called and after that depending on the request the repository classes will deal with the request. The services are used for checking and exception handleing and the repository classes acces the database using Hibernate.  
+I made two main classes that describe the user and the picture. I also made a class for the LikeObserver which updates a string notification for the user if another user likes a picture of the first one. Also, I made some wrappers for the request-body parameters. These wrappers are made only of the fields needed for the requests.    
 
-### diagram  
+### diagram of domain model  
 
-This diagram describes the relations between the main classes of this application. A user can have zero or any number of pictures, hence ther's a one-to-many relationship and also a picture has a owner so the relation is bilateral. A user can have zero or any number of friends and some friends can have the same user as their friend. Since a friend is basically another user, we have here a many-to-many relation for the same class (recusrion). A user must have a LikeObserver which sees if the user has been liked by another user. Then the LikeObserver creates a notification for the user (this will hang somewhere on the web page). Also, a picture must keep track of the users that liked it so this way, a user cannot like a picture multiple times. Hence, a picture has a list of users who liked that picture.   
+This diagram describes the relations between the main classes of this application. A user can have zero or any number of pictures, hence there's a one-to-many relationship and also a picture has a owner so the relation is bilateral. A user can have zero or any number of friends and some friends can have the same user as their friend. Since a friend is basically another user, we have here a many-to-many relation for the same class (recursion). A user must have a LikeObserver which sees if the user has a picture liked by another user. Then the LikeObserver creates a notification for the user (this will hang somewhere on the web page). Also, a picture must keep track of the users that liked it so this way, a user cannot like a picture multiple times. Hence, a picture has a list of users who liked that picture.   
 
 <img src="new_diagram.png"
      alt="diag"
@@ -39,3 +41,5 @@ This sequence diagram describes two flows: the flow of creating a user and the f
      alt="diag"
      style="float: left; margin-right: 10px;" />
 
+### conclusions  
+In conclusion, this app can be developed much more in order to resemble more with the existing social-media apps and be capable of handling many users. Till now this app represents just the beginning of a social-media app.
